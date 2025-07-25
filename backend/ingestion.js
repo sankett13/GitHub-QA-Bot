@@ -41,11 +41,24 @@ async function createKnowledgeBase(repoUrl) {
     .replace(/\.git$/, "");
   const repoPath = path.join(process.cwd(), repoName);
 
+  // Remove existing directory if it exists
+  try {
+    await fs.access(repoPath);
+    console.log(`Directory ${repoPath} already exists. Removing it...`);
+    await fs.rm(repoPath, { recursive: true, force: true });
+  } catch (error) {
+    // Directory doesn't exist, which is fine
+    console.log(
+      `Directory ${repoPath} doesn't exist. Proceeding with clone...`
+    );
+  }
+
   // Clone the repository
   try {
-    console.log(`Cloning repository from  ${repoUrl} to ${repoPath}`);
+    console.log(`Cloning repository from ${repoUrl} to ${repoPath}`);
     const git = simpleGit();
     await git.clone(repoUrl, repoPath);
+    console.log(`Repository cloned successfully to ${repoPath}`);
   } catch (error) {
     console.error("Error cloning repository:", error);
     throw new Error("Failed to clone the repository. Please check the URL.");
@@ -79,6 +92,17 @@ async function createKnowledgeBase(repoUrl) {
     allSplits,
     embeddings
   );
+
+  // Clean up the cloned repository directory to save space
+  try {
+    await fs.rm(repoPath, { recursive: true, force: true });
+    console.log(`Cleaned up repository directory: ${repoPath}`);
+  } catch (error) {
+    console.warn(
+      `Warning: Could not clean up directory ${repoPath}:`,
+      error.message
+    );
+  }
 
   console.log("Knowledge base created successfully.");
   return vectorStore;

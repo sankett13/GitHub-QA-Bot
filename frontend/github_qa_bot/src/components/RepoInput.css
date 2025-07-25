@@ -1,0 +1,116 @@
+/* RepoInput Component Styles */
+.repo-input-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.repo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.validation-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.help-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.help-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.help-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.help-list li {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+.help-list li:hover {
+    color: var(--text-primary);
+    transform: translateX(4px);
+    transition: all 0.2s ease;
+}
+
+/* Enhanced form styling */
+.form-input:focus {
+    transform: translateY(-1px);
+}
+
+.form-input:disabled {
+    background-color: var(--bg-secondary);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .repo-input-container {
+        max-width: 100%;
+    }
+
+    .help-list {
+        gap: 0.5rem;
+    }
+
+    .help-list li {
+        font-size: 0.875rem;
+    }
+}
+
+/* Animation for the entire component */
+.repo-input-container.fade-in {
+    animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

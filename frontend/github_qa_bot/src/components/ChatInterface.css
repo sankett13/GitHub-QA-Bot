@@ -1,0 +1,465 @@
+/* ChatInterface Component Styles */
+.chat-interface {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 100%;
+    max-width: 1000px;
+    background: var(--bg-card);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, var(--light-purple), rgba(255, 255, 255, 0.8));
+    border-bottom: 1px solid var(--border-light);
+}
+
+.repo-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.repo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    border-radius: 10px;
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.repo-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.repo-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.repo-status {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 500;
+}
+
+.reset-btn {
+    font-size: 0.875rem;
+    padding: 0.625rem 1.25rem;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.welcome-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 255, 255, 0.8));
+    border-radius: 1rem;
+    border: 1px solid var(--border-purple);
+    text-align: center;
+}
+
+.welcome-message h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.welcome-message p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.suggested-questions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.75rem;
+}
+
+.suggestion-btn {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    outline: none;
+}
+
+.suggestion-btn:hover {
+    border-color: var(--primary-purple);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.suggestion-btn:active {
+    transform: translateY(0);
+}
+
+.message {
+    display: flex;
+    gap: 1rem;
+    animation: messageSlideIn 0.3s ease-out;
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.message.user .message-content {
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    color: white;
+    border-radius: 1rem 1rem 0.25rem 1rem;
+}
+
+.message.bot .message-content,
+.message.system .message-content {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: 1rem 1rem 1rem 0.25rem;
+    border: 1px solid var(--border-light);
+}
+
+.message.error .message-content {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+    color: #dc2626;
+    border-radius: 1rem 1rem 1rem 0.25rem;
+    border: 1px solid #fca5a5;
+}
+
+.message.system {
+    justify-content: center;
+}
+
+.message.system .message-avatar {
+    display: none;
+}
+
+.message.system .message-content {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+    text-align: center;
+    border-radius: 1rem;
+}
+
+.message-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--light-purple);
+    color: var(--primary-purple);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.message.user .message-avatar {
+    background: linear-gradient(135deg, var(--accent-purple), var(--secondary-purple));
+    color: white;
+}
+
+.message.bot .message-avatar {
+    background: var(--primary-purple);
+    color: white;
+}
+
+.message.error .message-avatar {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 1rem 1.25rem;
+    word-wrap: break-word;
+}
+
+.message.user .message-content {
+    max-width: 80%;
+}
+
+.message-text {
+    line-height: 1.6;
+}
+
+.message-text strong {
+    font-weight: 600;
+}
+
+.message-text em {
+    font-style: italic;
+}
+
+.message-text code {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875em;
+}
+
+.message.user .message-text code {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.message-time {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+}
+
+.typing {
+    opacity: 0.8;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-purple);
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.message-form {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-secondary);
+}
+
+.input-container {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+}
+
+.message-input {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border-light);
+    border-radius: 1.5rem;
+    font-size: 0.95rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    outline: none;
+    resize: none;
+    min-height: 48px;
+    max-height: 120px;
+}
+
+.message-input:focus {
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.message-input::placeholder {
+    color: var(--text-muted);
+}
+
+.send-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    flex-shrink: 0;
+}
+
+.send-btn:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.send-btn:active {
+    transform: scale(0.95);
+}
+
+.send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Animations */
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Scrollbar styling */
+.messages-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+    background: var(--border-purple);
+    border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-purple);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chat-interface {
+        height: 85vh;
+        border-radius: 0.75rem;
+    }
+
+    .chat-header {
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .repo-info {
+        gap: 0.75rem;
+    }
+
+    .repo-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .repo-name {
+        font-size: 1.125rem;
+    }
+
+    .messages-container {
+        padding: 1rem 1.5rem;
+        gap: 1rem;
+    }
+
+    .message-content {
+        max-width: 85%;
+    }
+
+    .message.user .message-content {
+        max-width: 90%;
+    }
+
+    .message-form {
+        padding: 1rem 1.5rem;
+    }
+
+    .suggested-questions {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-section {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-header {
+        padding: 1rem;
+    }
+
+    .messages-container {
+        padding: 1rem;
+    }
+
+    .message-form {
+        padding: 1rem;
+    }
+
+    .input-container {
+        gap: 0.5rem;
+    }
+
+    .send-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
