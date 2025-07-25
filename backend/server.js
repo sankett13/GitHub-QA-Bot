@@ -44,10 +44,9 @@ app.post("/api/process-repo", async (req, res) => {
       prompt,
     });
 
-    qaChain = createRetrievalChain({
-      llm,
-      vectorStore,
-      combineDocChain,
+    qaChain = await createRetrievalChain({
+      retriever: vectorStore.asRetriever(),
+      combineDocsChain: combineDocChain,
     });
 
     console.log("Knowledge base created successfully.");
@@ -73,7 +72,7 @@ app.post("/api/chat", async (req, res) => {
     console.log("Received question:", question);
     const response = await qaChain.invoke({ input: question });
     res.status(200).json({
-      answer: response.text,
+      answer: response.answer,
     });
   } catch (error) {
     console.error("Error in chat endpoint:", error);
