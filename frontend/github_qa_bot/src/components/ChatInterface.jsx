@@ -270,6 +270,62 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
                     __html: formatMessage(message.content),
                   }}
                 />
+
+                {/* Display source documents for bot messages */}
+                {message.type === "bot" &&
+                  message.sourceDocuments &&
+                  message.sourceDocuments.length > 0 && (
+                    <div className="source-documents">
+                      <div className="sources-header">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <polyline
+                            points="14,2 14,8 20,8"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        Sources ({message.sourceDocuments.length})
+                        {message.enhancedRetrieval && (
+                          <span className="enhanced-badge">Enhanced</span>
+                        )}
+                      </div>
+                      <div className="sources-list">
+                        {message.sourceDocuments.map((doc, idx) => (
+                          <div key={idx} className="source-item">
+                            <div className="source-header">
+                              <span className="source-path">{doc.source}</span>
+                              {doc.fileType && (
+                                <span className="file-type">
+                                  {doc.fileType}
+                                </span>
+                              )}
+                            </div>
+                            {doc.preview && (
+                              <div className="source-preview">
+                                {doc.preview}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                 <div className="message-time">{message.timestamp}</div>
               </div>
             </div>

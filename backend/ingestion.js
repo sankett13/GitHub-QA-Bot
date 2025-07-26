@@ -307,6 +307,10 @@ async function createKnowledgeBaseInternal(repoUrl) {
               source: path.relative(repoPath, filePath),
               size: stats.size,
               truncated: content.length > maxContentLength,
+              fileType: path.extname(filePath),
+              fileName: path.basename(filePath),
+              directory: path.dirname(path.relative(repoPath, filePath)),
+              priority: getPriority(path.relative(repoPath, filePath)),
             },
           };
         } catch (readError) {
@@ -326,18 +330,35 @@ async function createKnowledgeBaseInternal(repoUrl) {
 
   console.log(`Loaded ${documents.length} documents from the repository.`);
 
-  // Split documents into chunks - optimize for large repos
+  // Split documents into chunks - optimize for better context retrieval
   console.log("Splitting documents into chunks...");
   const splitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 1500, // Larger chunks for better context
-    chunkOverlap: 300,
+    chunkSize: 2000, // Larger chunks for better context
+    chunkOverlap: 400, // More overlap for better continuity
+    separators: [
+      "\n\n", // Paragraph breaks
+      "\n", // Line breaks
+      "\n\n\n", // Multiple line breaks
+      "class ", // Class definitions
+      "function ", // Function definitions
+      "def ", // Python function definitions
+      "export ", // Export statements
+      "import ", // Import statements
+      "const ", // Const declarations
+      "let ", // Let declarations
+      "var ", // Var declarations
+      ". ", // Sentence ends
+      ", ", // Comma separators
+      " ", // Word breaks
+      "", // Character level (last resort)
+    ],
   });
 
   const allSplits = await splitter.splitDocuments(documents);
   console.log(`Split documents into ${allSplits.length} chunks.`);
 
   // Limit chunks for very large repositories to prevent API exhaustion
-  const maxChunks = 500;
+  const maxChunks = 800; // Increased for better coverage
   let processedSplits = allSplits;
 
   if (allSplits.length > maxChunks) {

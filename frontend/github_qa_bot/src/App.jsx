@@ -17,7 +17,7 @@ function App() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/process-repo", {
+      const response = await fetch("/api/process-repo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,8 @@ function App() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const response = await fetch("http://localhost:8000/api/chat", {
+      // Use the enhanced chat endpoint for better context retrieval
+      const response = await fetch("/api/chat-enhanced", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,6 +76,8 @@ function App() {
           type: "bot",
           content: data.answer,
           timestamp: new Date().toLocaleTimeString(),
+          sourceDocuments: data.sourceDocuments || [],
+          enhancedRetrieval: data.enhancedRetrieval || false,
         };
         setMessages((prev) => [...prev, botMessage]);
       } else {
