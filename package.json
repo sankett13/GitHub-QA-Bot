@@ -1,0 +1,27 @@
+{
+  "name": "github-qa-bot-monorepo",
+  "version": "1.0.0",
+  "description": "GitHub QA Bot with RAG - Full Stack Application",
+  "scripts": {
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend/github_qa_bot && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend/github_qa_bot && npm run dev",
+    "build:frontend": "cd frontend/github_qa_bot && npm run build",
+    "start:backend": "cd backend && npm start",
+    "preview:frontend": "cd frontend/github_qa_bot && npm run preview",
+    "deploy:build": "npm run build:frontend"
+  },
+  "keywords": [
+    "github",
+    "qa",
+    "bot",
+    "rag",
+    "ai",
+    "react",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

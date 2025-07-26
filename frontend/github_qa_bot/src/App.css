@@ -21,6 +21,11 @@
     --shadow-md: 0 4px 6px rgba(139, 92, 246, 0.1);
     --shadow-lg: 0 10px 15px rgba(139, 92, 246, 0.15);
     --shadow-xl: 0 20px 25px rgba(139, 92, 246, 0.2);
+
+    /* Mobile-specific variables */
+    --mobile-padding: 1rem;
+    --mobile-border-radius: 0.5rem;
+    --mobile-font-size: 0.875rem;
 }
 
 * {
@@ -35,12 +40,17 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
+    /* Prevent horizontal scrolling on mobile */
+    overflow-x: hidden;
 }
 
 .app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    /* Improve rendering on mobile */
+    position: relative;
+    width: 100%;
 }
 
 .main-content {
@@ -243,17 +253,97 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 1.5rem;
+        max-width: 800px;
+    }
+}
+
 @media (max-width: 768px) {
     .main-content {
         padding: 1rem;
+        align-items: stretch;
     }
 
     .card {
         padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 0 0.5rem;
     }
 
     .btn {
         padding: 0.875rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    .card-title {
+        font-size: 1.375rem;
+    }
+
+    .card-subtitle {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .main-content {
+        padding: 0.75rem;
+        min-height: calc(100vh - 120px);
+    }
+
+    .card {
+        padding: 1.25rem;
+        margin: 0;
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        min-height: 44px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+    }
+
+    .card-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .form-input {
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+
+    .repo-section {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .main-content {
+        padding: 0.5rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .btn {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.825rem;
+    }
+
+    .card-title {
+        font-size: 1.125rem;
     }
 }
 
@@ -272,4 +362,88 @@ body {
 
 .fade-in {
     animation: fadeIn 0.3s ease-out;
+}
+
+/* Utility classes for mobile optimization */
+.mobile-optimized {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area support for newer iOS devices */
+@supports (padding: max(0px)) {
+    .app {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
+/* PWA optimizations */
+@media (display-mode: standalone) {
+    .app {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Loading state improvements */
+.app.loading {
+    overflow: hidden;
+}
+
+/* Error boundary styling */
+.error-boundary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    padding: 2rem;
+    text-align: center;
+}
+
+.error-boundary h2 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.error-boundary p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 500px;
+}
+
+/* Focus management improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Performance optimizations */
+.will-change-transform {
+    will-change: transform;
+}
+
+.will-change-auto {
+    will-change: auto;
 }

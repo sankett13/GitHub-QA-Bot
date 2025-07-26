@@ -15,6 +15,15 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
     scrollToBottom();
   }, [messages]);
 
+  // Auto-resize textarea on mobile
+  useEffect(() => {
+    const textarea = inputRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 120)}px`;
+    }
+  }, [inputMessage]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (inputMessage.trim()) {
@@ -23,6 +32,13 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
       setInputMessage("");
       setIsTyping(false);
       inputRef.current?.focus();
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
     }
   };
 
@@ -50,7 +66,7 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
   ];
 
   return (
-    <div className="chat-interface fade-in">
+    <div className="chat-interface fade-in mobile-optimized">
       <div className="chat-header">
         <div className="repo-info">
           <div className="repo-icon">
@@ -75,7 +91,10 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
           </div>
         </div>
 
-        <button onClick={onReset} className="btn btn-secondary reset-btn">
+        <button
+          onClick={onReset}
+          className="btn btn-secondary reset-btn mobile-optimized"
+        >
           <svg
             width="18"
             height="18"
@@ -110,7 +129,7 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
       </div>
 
       <div className="chat-container">
-        <div className="messages-container">
+        <div className="messages-container smooth-scroll">
           {messages.length === 1 && messages[0].type === "system" && (
             <div className="welcome-section">
               <div className="welcome-message">
@@ -125,7 +144,7 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
                 {suggestedQuestions.map((question, index) => (
                   <button
                     key={index}
-                    className="suggestion-btn"
+                    className="suggestion-btn mobile-optimized"
                     onClick={() => {
                       setInputMessage(question);
                       inputRef.current?.focus();
@@ -405,18 +424,20 @@ const ChatInterface = ({ repoUrl, messages, onSendMessage, onReset }) => {
 
         <form onSubmit={handleSubmit} className="message-form">
           <div className="input-container">
-            <input
+            <textarea
               ref={inputRef}
-              type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Ask a question about the repository..."
-              className="message-input"
+              className="message-input mobile-optimized"
               disabled={isTyping}
+              rows={1}
+              style={{ resize: "none" }}
             />
             <button
               type="submit"
-              className="send-btn"
+              className="send-btn mobile-optimized"
               disabled={!inputMessage.trim() || isTyping}
             >
               <svg

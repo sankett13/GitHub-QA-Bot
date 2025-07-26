@@ -12,12 +12,15 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState("");
 
+  // Get API URL from environment variables
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
   const handleProcessRepo = async (url) => {
     setIsProcessing(true);
     setError("");
 
     try {
-      const response = await fetch("/api/process-repo", {
+      const response = await fetch(`${API_URL}/api/process-repo`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +64,7 @@ function App() {
 
     try {
       // Use the enhanced chat endpoint for better context retrieval
-      const response = await fetch("/api/chat-enhanced", {
+      const response = await fetch(`${API_URL}/api/chat-enhanced`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

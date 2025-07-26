@@ -68,3 +68,108 @@ body {
     outline: 2px solid #8b5cf6;
     outline-offset: 2px;
 }
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Custom scrollbar for mobile */
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(139, 92, 246, 0.3);
+        border-radius: 2px;
+    }
+
+    /* Prevent text scaling */
+    input,
+    textarea,
+    select {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+
+    /* Ensure proper touch targets */
+    button,
+    input,
+    select,
+    textarea {
+        min-height: 44px;
+    }
+
+    /* Prevent zoom on focus for iOS */
+    input,
+    textarea,
+    select {
+        font-size: 16px;
+        border-radius: 0;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-light: #000000;
+        --border-purple: #4c1d95;
+        --text-muted: #374151;
+    }
+}
+
+/* Dark mode preparation (for future implementation) */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles can be added here */
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+
+    /* Larger touch targets */
+    button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Reduce hover effects */
+    *:hover {
+        transition-duration: 0.1s;
+    }
+}
+
+/* Landscape orientation on mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    #root {
+        min-height: 100vh;
+    }
+}

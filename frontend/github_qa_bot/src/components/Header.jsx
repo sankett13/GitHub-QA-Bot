@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.css";
 
 const Header = () => {
+  // This is version one
   return (
     <header className="header">
       <div className="header-content">
@@ -52,7 +53,7 @@ const Header = () => {
           </div>
           <div className="status-indicator">
             <div className="status-dot"></div>
-            <span className="status-text">Ready</span>
+            <span className="status-text">Version 1.0.0</span>
           </div>
         </div>
       </div>

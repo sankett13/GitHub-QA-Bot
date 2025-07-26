@@ -19,7 +19,7 @@ const RepoInput = ({ onProcessRepo, isProcessing, error }) => {
   const isUrlValid = repoUrl ? isValidGitHubUrl(repoUrl) : true;
 
   return (
-    <div className="repo-input-container fade-in">
+    <div className="repo-input-container fade-in mobile-optimized">
       <div className="card">
         <div className="card-header">
           <h2 className="card-title">🚀 Get Started with Your Repository</h2>
@@ -40,7 +40,9 @@ const RepoInput = ({ onProcessRepo, isProcessing, error }) => {
               value={repoUrl}
               onChange={(e) => setRepoUrl(e.target.value)}
               placeholder="https://github.com/username/repository"
-              className={`form-input ${!isUrlValid ? "input-error" : ""}`}
+              className={`form-input mobile-optimized ${
+                !isUrlValid ? "input-error" : ""
+              }`}
               disabled={isProcessing}
               required
             />
@@ -71,7 +73,7 @@ const RepoInput = ({ onProcessRepo, isProcessing, error }) => {
 
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary mobile-optimized"
             disabled={isProcessing || !repoUrl.trim() || !isUrlValid}
           >
             {isProcessing ? (
