@@ -57,7 +57,7 @@ Railway still offers a community plan with limited free usage.
 4. **Add environment variables** in Railway dashboard:
 
    ```
-   GEMINI_API_KEY=AIzaSyAnJCh0AGw710GloyAeF904WJhRdh37JOg
+   GEMINI_API_KEY=
    PORT=8000
    NODE_ENV=production
    ```
